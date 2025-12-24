@@ -70,11 +70,10 @@ def get_blocks(
         summary = truncate(escape(committee["idx_summary"]), presentation.summary_truncation)
 
         leaders = committee.get("idx_leaders", [])
-        leaders_text = (
-            f"_Leader{'' if len(leaders) == 1 else 's'}: {', '.join(leaders)}_{NL}"
-            if leaders and presentation.include_metadata
-            else ""
-        )
+        leaders_text = ""
+        if leaders and presentation.include_metadata:
+            leaders_label = "Leader" if len(leaders) == 1 else "Leaders"
+            leaders_text = f"_{leaders_label}: {', '.join(leaders)}_{NL}"
 
         blocks.append(
             markdown(
